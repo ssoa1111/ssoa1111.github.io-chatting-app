@@ -1,6 +1,4 @@
-https://ssoa1111.github.io/ssoa1111.github.io-chatting-app/chat.html
-
-# chatting-app (진행중)
+# chatting-app
 WebSocket을 이해하기 위해 유저채팅을 만들어 봤다.
 
 ## 사용한 기능
@@ -59,11 +57,20 @@ node server.js
 
 ## 진행과정
 1. client 몇 명인지 확인 후 터미널 확인      
-![alt text](image-1.png)   
-![alt text](image.png)
+![alt text](img/image-1.png)   
+![alt text](img/image.png)
 
-2. 
-
+2. client에서 내용을 작성 후 server에 send
+3. server에서 모든 client에게 메세지를 send
+![alt text](img/image-2.png)
 
 ## 후기
 예전에 zep 프로젝트를 하면서 전체 유저에게 특정 컨텐츠를 보여주거나 개인 유저에게만 보여줘야하는 내용을 진행을 한 경험이 있어서 그런지 비슷한 맥락이라 금방 이해가 가능했다.
+client에서 내용을 보내면 server에서 reflect만 하는 특별한 기능이 없지만 websocket의 기본 동작 방식을 이해하는데 도움이 되었다.
+
+- 다음 구현 사항 
+    - 개인 메세지 전송 - 알림을 누르면 개인에게만 특정 메세지가 보내지도록 설정
+    - 방 기능 - 특정 방에서만 메세지가 전달
+    - json으로 보낸 사람이나 내용으로 정보를 체크
+    - 메세지 시간표시
+    - 이모지 파일 전송

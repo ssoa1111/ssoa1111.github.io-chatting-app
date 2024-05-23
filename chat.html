@@ -5,38 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chatting-app</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="container">
         <div class="chat-wrap">
+            <div class="chat-contents"></div>
             <div class="chat-input">
-                <input type="text" id="name" placeholder="이름">
-                <input type="text" id="message" placeholder="내용">
+                <input type="text" id="user-name" placeholder="이름">
+                <input type="text" id="user-msg" placeholder="내용">
                 <button class="btn-send"> send </button>
             </div>
-            <div class="chat-contents"></div>
         </div>
     </div>
-
-    <script>
-        const socket = new WebSocket('ws://localhost:5501');
-
-        socket.addEventListener("open", () => {
-            console.log('open')
-            socket.send("open");
-            socket.addEventListener("message", (e) => {
-                console.log('rec client', e.data)
-            })
-        })
-
-        const sendBtn = document.querySelector('.btn-send')
-        sendBtn.addEventListener('click', (e) => {
-            e.preventDefault()
-            console.log('--123')
-            socket.send('send message')
-        })
-    </script>
+    <script src="js/client.js"></script>
 </body>
 
 </html>

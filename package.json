@@ -5,7 +5,7 @@
   "homepage": "https://github.com/ssoa1111/chatting-app/chat.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node server.js",
+    "server": "node js/server.js",
     "client": "start chat.html",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
