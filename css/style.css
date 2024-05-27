@@ -4,6 +4,51 @@
     font-size: 10px;
 }
 
+button {
+    width: 5rem;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* room */
+.layer-wrap {
+    display: none;
+}
+
+.layer-wrap.show {
+    display: block;
+}
+
+.btn-add-room {
+    width: 30px;
+    height: 30px;
+}
+
+.room-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    padding: 3rem;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+.room-name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.room-desc {
+    font-size: 1.5rem;
+    color: #aaa;
+}
+
+/* //room */
+
+/* chat */
 .chat-wrap {
     max-width: 30rem;
     margin: auto;
@@ -51,9 +96,11 @@
 }
 
 .btn-send {
-    width: 5rem;
+    /* width: 5rem;
     border: none;
     font-size: 1.5rem;
-    color: #fff;
+    color: #fff; */
     background-color: green;
 }
+
+/* //chat */

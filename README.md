@@ -14,12 +14,12 @@ client와 server간 양방향 통신을 가능하게 함
     - 최소한의 헤더 정보를 사용하여 데이터 전송 (낮은 오버헤드 )
     - 한번 연결하면 닫기 전까지 지속적인 통신 가능
 2. 웹소켓이 작동방식
-    - 연결 시작          
+    - 연결 시작               
         핸드셰이크 (Handshake) 실행 :          
         http 요청을 서버에 보내고 http 연결을 websocket 연결로 전환됨
-    - 연결 후              
+    - 연결 후                 
         데이터 주고 받기 가능
-    - 연결 닫기
+    - 연결 닫기               
         client || server에서 close를 통해 연결을 종료할 수 있음
 
 ## 기본 셋팅
@@ -60,8 +60,8 @@ node server.js
 ![alt text](img/image-1.png)   
 ![alt text](img/image.png)
 
-2. client에서 내용을 작성 후 server에 send
-3. server에서 모든 client에게 메세지를 send
+2. client에서 내용을 작성 후 server에 send           
+3. server에서 모든 client에게 메세지를 send          
 ![alt text](img/image-2.png)
 
 ## 후기

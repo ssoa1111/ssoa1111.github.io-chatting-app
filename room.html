@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatting-app</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- chat -->
+        <div class="room-wrap">
+            <div class="room-list"></div>
+            <button type="button" class="btn-add-room">방 추가</button>
+        </div>
+        <div class="layer-wrap">
+            <div class="dialog">
+                <div class="dialog-header">방 추가하기</div>
+                <div class="dialog-contents">
+                    <div class="room-title">
+                        <span>방 이름 : </span>
+                        <input type="text" id="room-name">
+                    </div>
+                    <div class="room-desc">
+                        <span>방 설명 : </span>
+                        <input type="text" id="room-desc">
+                    </div>
+                </div>
+                <div class="dialog-footer">
+                    <div class="dialog-cancel">취소</div>
+                    <div class="dialog-confirm">확인</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/client.js"></script>
+</body>
+
+</html>
