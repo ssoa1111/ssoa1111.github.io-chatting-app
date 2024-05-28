@@ -5,6 +5,21 @@ const utils = {
         dom.textContent = text
 
         return dom
+    },
+    setRandomID(prefix) {
+        const randomId = Math.random().toString(32).substring(2, 5)
+        return `${prefix}-${randomId}`
+    },
+    setQueryString(obj) {
+        const baseURL = window.location.href
+        const urlParam = new URLSearchParams(obj)
+
+        return `${baseURL.replace('room', 'chat')}?${urlParam}`
+    },
+    getQueryString(key) {
+        const urlParam = new URLSearchParams(window.location.search)
+
+        return urlParam.get(key)
     }
 }
 
@@ -36,10 +51,17 @@ function roomFnc() {
         $layerWrap,
         confirmRoom,
         $confirmRoom,
-        showClass = "show";
+        showClass = "show",
+
+        roomList,
+        $roomList,
+        roomItem,
+
+        actions = {};
 
     function init() {
         setSelector()
+        setActions()
         setEvent()
     }
     function setSelector() {
@@ -47,9 +69,21 @@ function roomFnc() {
         layerWrap = ".layer-wrap"
         confirmRoom = ".dialog-confirm"
 
+        roomList = ".room-list"
+        roomItem = ".room-item"
+
         $addBtn = document.querySelector(addBtn)
         $layerWrap = document.querySelector(layerWrap)
         $confirmRoom = document.querySelector(confirmRoom)
+        $roomList = document.querySelector(roomList)
+    }
+    function setActions() {
+        actions.enterRoom = (target) => {
+            const $roomItem = target.closest(roomItem)
+            if (!$roomItem) return
+
+            window.location = utils.setQueryString($roomItem.roomInfo)
+        }
     }
     function setEvent() {
         $addBtn?.addEventListener("click", () => {
@@ -64,6 +98,8 @@ function roomFnc() {
             addRoom()
             $layerWrap.classList.remove(showClass)
         })
+
+        $roomList.addEventListener("click", (e) => actions.enterRoom(e.target))
     }
     function addRoom() {
         const container = utils.makeDom('button', 'room-item')
@@ -71,6 +107,12 @@ function roomFnc() {
         container.append(SEND["makeRoomName"]?.(SEND.roomName.value))
         container.append(SEND["makeRoomDesc"]?.(SEND.roomDesc.value))
         SEND.$targetRoom?.append(container)
+
+        container.roomInfo = {
+            roomId: utils.setRandomID("room"),
+            roomName: SEND.roomName.value,
+            // makeUser : 
+        }
     }
     return { init }
 }
@@ -104,7 +146,11 @@ function chatFnc() {
 
     function sendMessage(e) {
         e.preventDefault()
-        SEND.userMsg.value && ecoSay(socket, "user", `${SEND.userMsg.value}`)
+        SEND.userMsg.value && ecoSay(socket, {
+            type: "user",
+            text: `${SEND.userMsg.value}`,
+            roomId: utils.getQueryString("roomId")
+        })
         SEND.userMsg.value = ''
     }
 
@@ -113,9 +159,10 @@ function chatFnc() {
 
 
 
-function ecoSay(server, type, text) {
+function ecoSay(server, data) {
     server.send(JSON.stringify({
-        type: type,
-        chat: text
+        type: data.type,
+        chat: data.text,
+        roomId: data.roomId
     }))
 }

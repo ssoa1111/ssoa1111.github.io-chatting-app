@@ -56,6 +56,7 @@ node server.js
 5. localhost/chat.html 확인
 
 ## 진행과정
+### server와 client의 연결
 1. client 몇 명인지 확인 후 터미널 확인      
 ![alt text](img/image-1.png)   
 ![alt text](img/image.png)
@@ -63,6 +64,80 @@ node server.js
 2. client에서 내용을 작성 후 server에 send           
 3. server에서 모든 client에게 메세지를 send          
 ![alt text](img/image-2.png)
+```
+//server.js
+
+const express = require('express')
+const path = require('path');
+
+const app = express()
+const PORT = process.env.PORT || 5500
+
+app.listen(PORT, () => {
+    const ws = require('ws')
+
+    const server = new ws.Server({ port: 5501 })
+
+    server.on('connection', (socket) => {
+        ecoSayAll(server, "system", `유저가 입장했습니다. 현재 유저 ${server.clients.size}`)
+    })
+});
+```
+```
+//client.js
+
+const socket = new WebSocket('ws://localhost:5501');
+
+function setEvent() {
+    socket.addEventListener("open", ()=> {
+        socket.addEventListene("message", receiveMessage)
+    })
+    $sendBtn?.addEventListener('click',sendMessage)
+}
+
+// 메세지 받기
+function receiveMessage(e) { 
+    const data = JSON.parse(e.data)
+    SEND.$targetChat?.append(SEND[datatype]?.(data.chat))
+    chatContents.scrollTop =chatContents.scrollHeight;
+}
+
+// 메세지 보내기
+function sendMessage(e) {
+    e.preventDefault()
+    SEND.userMsg.value && ecoSay(socket,"user", `${SEND.userMsg.value}`)
+    SEND.userMsg.value = ''
+}
+
+// data server에 보내기
+function ecoSay(server, type, text) {
+    server.send(JSON.stringify({
+        type: type,
+        chat: text
+    }))
+}
+```
+
+### 방 만들기
+1. 확인 버튼 누르면 방 추가 ( 추후 변경 - dialog 임시 생성)
+![alt text](img/image-3.png)
+2. room-item에 room의 정보 저장
+3. query를 이용하여 방의 고유 주소 변경
+![alt text](img/image-4.png)
+```
+const utils = {
+    //...
+    getQueryString(obj) {
+        const baseURL = window.location.pathname
+        const urlParam = new URLSearchParams(obj)
+
+        return `${baseURL.replace('room', 'chat')}?${urlParam}`
+    }
+}
+
+// click 이벤트
+window.location = utils.getQueryString($roomItem.roomInfo)
+```
 
 ## 후기
 예전에 zep 프로젝트를 하면서 전체 유저에게 특정 컨텐츠를 보여주거나 개인 유저에게만 보여줘야하는 내용을 진행을 한 경험이 있어서 그런지 비슷한 맥락이라 금방 이해가 가능했다.

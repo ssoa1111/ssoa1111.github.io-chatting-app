@@ -22,8 +22,9 @@ button {
 }
 
 .btn-add-room {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: green;
 }
 
 .room-item {
@@ -44,6 +45,27 @@ button {
 .room-desc {
     font-size: 1.5rem;
     color: #aaa;
+}
+
+/* dialog */
+.dialog-header {
+    font-size: 2rem;
+}
+
+.dialog-footer {
+    display: flex;
+    font-size: 1.8rem;
+}
+
+.dialog-cancel {
+    font-size: 1.5rem;
+    background-color: #ccc;
+}
+
+.dialog-confirm {
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: green;
 }
 
 /* //room */
